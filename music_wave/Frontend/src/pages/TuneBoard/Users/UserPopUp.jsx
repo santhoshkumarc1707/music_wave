@@ -1,6 +1,6 @@
 
 const UserPopUp = ({currentUser, setShowModal, error }) => {
-console.log(currentUser);
+
 
     return (
         <div>

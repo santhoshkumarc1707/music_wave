@@ -8,12 +8,15 @@ import authReducer from "./authSlice";
 // import songsReducer from "./songsSlice";
 import PlaylistReducer from "./playlistSlice/playlistSlice";
 import profileSlice from "./ProfileSlice";
+import searchReducer from "./searchSlice"
 const reducers = combineReducers({
-	auth: authReducer,
 	// users: usersReducer,
 	// songs: songsReducer,
-	playlists: PlaylistReducer,
+	auth: authReducer,
+	songs: PlaylistReducer,
 	profile: profileSlice,
+	search: searchReducer,
+
 });
 
 const persistConfig = {

@@ -3,9 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AppRouter from './AppRouter/AppRouter';
 
-export const url = "http://localhost:3000";
-
-const App = () => {
+const App = () => { 
   return (
     <div>
       <ToastContainer />

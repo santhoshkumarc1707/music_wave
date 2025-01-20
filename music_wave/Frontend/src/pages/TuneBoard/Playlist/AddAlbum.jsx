@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { assets } from "../assets/admin-assets/assets";
+import { assets } from "../../../assets/admin-assets/assets";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -38,6 +38,7 @@ function AddAlbum() {
             formData.append("image", image);
             formData.append("bgColour", colour);
 
+
             const response = await axios.post(
                 `${import.meta.env.VITE_BASE_URL}/api/album/add`,
                 formData,
@@ -46,7 +47,7 @@ function AddAlbum() {
 
             if (response.data.success) {
                 toast.success("Album Added Successfully!");
-                navigate("/list-album");
+                navigate("/playlist");
                 resetForm();
             } else {
                 toast.error(response.data.message || "Failed to add album.");
@@ -66,6 +67,7 @@ function AddAlbum() {
         setImage(null);
     };
 
+
     return (
         <div className="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-6">
             <h1 className="text-2xl font-bold text-gray-800 mb-6">Add New Album</h1>
@@ -75,24 +77,6 @@ function AddAlbum() {
                 </div>
             ) : (
                 <form onSubmit={onSubmitHandler} className="space-y-6">
-                    {/* Upload Image */}
-                    <div className="flex flex-col items-center gap-4">
-                        <p className="text-sm font-medium text-gray-600">Upload Image</p>
-                        <input
-                            type="file"
-                            id="image"
-                            accept="image/*"
-                            onChange={(e) => setImage(e.target.files[0])}
-                            hidden
-                        />
-                        <label htmlFor="image" className="cursor-pointer">
-                            <img
-                                src={image ? URL.createObjectURL(image) : assets.upload_area}
-                                className="w-24 h-24 border rounded-lg object-cover"
-                                alt="Upload Preview"
-                            />
-                        </label>
-                    </div>
 
                     {/* Album Name */}
                     <div>
@@ -119,6 +103,24 @@ function AddAlbum() {
                             required
                         ></textarea>
                     </div>
+                    {/* Upload Image */}
+                    <div className="flex flex-col gap-4">
+                        <p className="text-sm font-medium text-gray-600">Upload Image</p>
+                        <input
+                            type="file"
+                            id="image"
+                            accept="image/*"
+                            onChange={(e) => setImage(e.target.files[0])}
+                            hidden
+                        />
+                        <label htmlFor="image" className="cursor-pointer">
+                            <img
+                                src={image ? URL.createObjectURL(image) : assets.upload_area}
+                                className="w-24 h-24 border rounded-lg object-cover"
+                                alt="Upload Preview"
+                            />
+                        </label>
+                    </div>
 
                     {/* Background Colour */}
                     <div>
@@ -134,9 +136,8 @@ function AddAlbum() {
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        className={`w-full py-3 font-medium rounded-lg transition duration-200 ${
-                            loading ? "bg-gray-400 cursor-not-allowed" : "bg-green-600 text-white hover:bg-green-700"
-                        }`}
+                        className={`w-full py-3 font-medium rounded-lg transition duration-200 ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-green-600 text-white hover:bg-green-700"
+                            }`}
                         disabled={loading}
                     >
                         {loading ? "Adding..." : "Add Album"}

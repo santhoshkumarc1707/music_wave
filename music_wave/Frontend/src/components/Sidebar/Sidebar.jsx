@@ -1,9 +1,9 @@
-import  { useMemo } from "react";
+import { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../../../../store/authSlice";
+import { logout } from "../../store/authSlice";
 import Swal from "sweetalert2";
-import { roleBasedTabs } from "../../../../../utils";
+import { roleBasedTabs } from "../../../utils";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -52,9 +52,7 @@ const Sidebar = () => {
       <div className="text-center mb-8">
         <img
           className="w-16 h-16 rounded-full mx-auto"
-          src={`https://picsum.photos/id/${Math.floor(
-            Math.random() * 1000
-          )}/200/300`}
+          src={`https://picsum.photos/id/${profileUser?.data?.profileno || 1}/200/300`}
           alt="User"
         />
         <h2 className="text-lg font-semibold mt-2">
@@ -65,7 +63,7 @@ const Sidebar = () => {
         </p>
       </div>
       <nav>
-        <ul className="space-y-4">
+        <ul className="space-y-3 text-center ">
           {tabs.map((tab) => (
             <li
               key={tab.name}

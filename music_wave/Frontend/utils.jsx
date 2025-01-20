@@ -3,13 +3,13 @@
 export  const roleBasedTabs = {
   admin: [
     { name: "Dashboard", path: "/dashboard" },
-    { name: "User", path: "/user" },
-    { name: "Song", path: "/list-song" },
-    { name: "Playlist", path: "/list-album" },
+    { name: "Song", path: "/list-songs" },
+    { name: "Playlist", path: "/playlist" },
   ],
   user: [
-    { name: "Dashboard", path: "/dashboard" },
-    { name: "ListSongs", path: "/songs" ,}
+    { name: "Song", path: "/list-songs" },
+    { name: "Playlist", path: "/playlist" },
+
    
   ],
   default:[{name:"",path:""}]

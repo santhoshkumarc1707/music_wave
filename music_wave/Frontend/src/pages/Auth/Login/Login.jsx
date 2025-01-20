@@ -41,6 +41,7 @@ const Login = () => {
         },
         config
       );
+console.log(response.data);
 
       const { data, message, role, id } = response.data || {};
       if (data && id && message) {
@@ -93,7 +94,7 @@ const Login = () => {
               value={formik.values.username}
               onChange={formik.handleChange}
               placeholder="Enter your email or username"
-              className="mt-1 p-3 block w-full border rounded-md bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-400"
+              className="mt-1 p-3 block  w-full border rounded-md bg-gray-50 focus:outline-none focus:ring-2 focus:ring-green-400"
             />
             {formik.errors.username && formik.touched.username && (
               <p className="text-red-500 text-sm mt-1">
