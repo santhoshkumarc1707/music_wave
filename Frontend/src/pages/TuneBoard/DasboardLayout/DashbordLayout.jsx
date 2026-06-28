@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import { fetchUserById, clearError } from "../../../store/profileSlice";
 import Sidebar from "../../../components/Sidebar/Sidebar";
 import Header from "../../../components/Header/Header";
 
