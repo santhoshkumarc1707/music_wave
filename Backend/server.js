@@ -71,7 +71,7 @@ app.use(cors());
 // Routes
 app.use("/api/song", songRouter);
 app.use("/api/album", albumRouter);
-app.use("/api/login", authRouter);
+app.use("/api", authRouter);
 app.use("/api/users", UserRouter);
 app.use("/api/search", SearchRouter);
 

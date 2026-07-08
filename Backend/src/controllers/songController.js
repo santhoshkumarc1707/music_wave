@@ -1,6 +1,24 @@
 import { v2 as cloudinary } from "cloudinary"
 import Song from "../models/Song.js";
 
+import  {Role}  from "../models/Role.js";
+
+import  Artist  from "../models/Artist.js";
+import  Album  from "../models/Album.js";
+import  Genre  from "../models/Genre.js";
+import  Playlist  from "../models/Playlist.js";
+import  PlaylistSong  from "../models/PlaylistSong.js";
+import  Favorite  from "../models/Favorite.js";
+import  ListeningHistory  from "../models/ListeningHistory.js";
+import  Plan  from "../models/Plan.js";
+import  Subscription  from "../models/Subscription.js";
+import  Payment  from "../models/Payment.js";
+import  Notification  from "../models/Notification.js";
+import  SearchHistory  from "../models/SearchHistory.js";
+import  Review  from "../models/Review.js";
+import  ActivityLog  from "../models/ActivityLog.js";
+import  Setting  from "../models/Setting.js";
+
 const addSong = async (req, res) => {
     try {
         const { name, desc } = req.body;

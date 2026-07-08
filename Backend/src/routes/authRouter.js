@@ -1,30 +1,16 @@
 import express from "express";
-import { User } from "../models/user.js";
-import bcrypt from "bcrypt";
+import  {login, logout,demo, register,forgotPassword,refreshToken,resetPassword,sendOTP,verifyOTP}  from "../controllers/authController.js";
 
 const authRouter = express.Router();
 
-
-authRouter.post("/", async (req, res) => {
-  try {
-    const user = await User.findOne({ email: req.body.email });
-    if (!user)
-      return res.status(400).send({ message: "Invalid email or password!" });
-
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!validPassword)
-      return res.status(400).send({ message: "Invalid email or password!" });
-
-    const token = user.generateAuthToken();
-    const role = user.isAdmin;
-    const id = user._id;
-
-    res
-      .status(200)
-      .send({ data: token, role: role, id: id, message:`Welcome ${user.name}! ` });
-  } catch (error) {
-    res.status(500).send({ message: "Internal Server Error" });
-  }
-});
+authRouter.post("/register", register);
+authRouter.post("/login", login);
+authRouter.get("/l",demo);
+authRouter.post("/logout", logout);
+authRouter.post("/forgot-password", forgotPassword);
+authRouter.post("/reset-password", resetPassword);
+authRouter.post("/send-otp", sendOTP);
+authRouter.post("/verify-otp", verifyOTP);
+authRouter.post("/refresh-token", refreshToken);
 
 export default authRouter;

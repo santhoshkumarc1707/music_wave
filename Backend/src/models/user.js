@@ -1,80 +1,176 @@
 import mongoose from "mongoose";
 import jsonwebtoken from "jsonwebtoken";
-const jwt = jsonwebtoken;
 import Joi from "joi";
 import passwordComplexity from "joi-password-complexity";
 
-// Counter schema for auto-incrementing IDs
-const counterSchema = new mongoose.Schema({
-  model: { type: String, required: true },
-  seq: { type: Number, default: 0 },
-});
+const jwt = jsonwebtoken;
 
-const Counter = mongoose.model("Counter", counterSchema);
+// ================= User Schema =================
 
-// User schema
-const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, unique: true, required: true },
-  password: { type: String, required: true },
-  gender: { type: String, required: true },
-  month: { type: String, required: true },
-  date: { type: String, required: true },
-  year: { type: String, required: true },
-  profileImg: {
-    data: { type: String },
-    contentType: { type: String },
-  },
-  likedSongs: { type: [String], default: [] },
-  album: { type: [String], default: [] },
-  isAdmin: { type: Boolean, default: false },
-  id: { type: Number, unique: true },
-});
+const userSchema = new mongoose.Schema(
+    {
+        name: {
+            type: String,
+            required: true,
+            trim: true,
+        },
 
-// Middleware to auto-increment the ID
-userSchema.pre("save", async function (next) {
-  if (!this.isNew || this.id) return next();
+        username: {
+            type: String,
+            unique: true,
+            trim: true,
+        },
 
-  try {
-    const counter = await Counter.findOneAndUpdate(
-      { model: "User" },
-      { $inc: { seq: 1 } },
-      { new: true, upsert: true }
-    );
-    this.id = counter.seq;
-    next();
-  } catch (err) {
-    next(err);
-  }
-});
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            lowercase: true,
+            trim: true,
+        },
+
+        phone: {
+            type: String,
+            default: "",
+        },
+
+        password: {
+            type: String,
+            required: true,
+        },
+
+        gender: {
+            type: String,
+            enum: ["male", "female", "non-binary"],
+            required: true,
+        },
+
+        dob: {
+            day: String,
+            month: String,
+            year: String,
+        },
+
+        roleId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Role",
+            required: true,
+        },
+
+        profileImage: {
+            data: String,
+            contentType: String,
+        },
+
+        likedSongs: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Song",
+            },
+        ],
+
+        favoriteAlbums: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Album",
+            },
+        ],
+
+        playlists: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Playlist",
+            },
+        ],
+
+        subscriptionId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Subscription",
+        },
+
+        isPremium: {
+            type: Boolean,
+            default: false,
+        },
+
+        otp: {
+            type: String,
+            default: null,
+        },
+
+        otpExpiry: {
+            type: Date,
+            default: null,
+        },
+
+        emailVerified: {
+            type: Boolean,
+            default: false,
+        },
+
+        status: {
+            type: String,
+            enum: ["Active", "Inactive", "Blocked"],
+            default: "Active",
+        },
+
+        lastLogin: {
+            type: Date,
+        },
+    },
+    {
+        timestamps: true,
+    }
+);
+
+// ================= JWT =================
 
 userSchema.methods.generateAuthToken = function () {
-  return jwt.sign(
-    { _id: this._id, name: this.name, isAdmin: this.isAdmin },
-    process.env.JWTPRIVATEKEY,
-    { expiresIn: "7d" }
-  );
+    return jwt.sign(
+        {
+            _id: this._id,
+            roleId: this.roleId,
+            email: this.email,
+            name: this.name,
+        },
+        process.env.JWTPRIVATEKEY,
+        {
+            expiresIn: "7d",
+        }
+    );
 };
 
-// Validate user data using Joi
+// ================= Joi Validation =================
+
 const validateUser = (user) => {
-  const schema = Joi.object({
-    name: Joi.string().min(5).max(10).required(),
-    email: Joi.string().email().required(),
-    password: passwordComplexity().required(),
-    month: Joi.string().required(),
-    date: Joi.string().required(),
-    year: Joi.string().required(),
-    gender: Joi.string().valid("male", "female", "non-binary").required(),
-    profileImg: Joi.object({
-      data: Joi.string(),
-      contentType: Joi.string(),
-    }).optional(),
-  });
-  return schema.validate(user);
+    const schema = Joi.object({
+        name: Joi.string().min(3).max(50).required(),
+
+        username: Joi.string().min(3).max(20).optional(),
+
+        email: Joi.string().email().required(),
+
+        phone: Joi.string().optional(),
+
+        password: passwordComplexity().required(),
+
+        gender: Joi.string()
+            .valid("male", "female", "non-binary")
+            .required(),
+
+        dob: Joi.object({
+            day: Joi.string().required(),
+            month: Joi.string().required(),
+            year: Joi.string().required(),
+        }).required(),
+
+        roleId: Joi.string().required(),
+    });
+
+    return schema.validate(user);
 };
 
-const User = mongoose.model("User", userSchema);
+const User =
+    mongoose.models.User || mongoose.model("User", userSchema);
 
-// Export User model and validateUser function directly
 export { User, validateUser };

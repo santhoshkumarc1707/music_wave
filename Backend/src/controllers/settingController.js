@@ -1,0 +1,1 @@
+import setting from "../models/Setting"

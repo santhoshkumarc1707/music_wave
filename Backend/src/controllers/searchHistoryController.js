@@ -1,0 +1,1 @@
+import searchHistory from "../models/SearchHistory"
