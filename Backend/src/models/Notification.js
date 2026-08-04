@@ -1,9 +1,99 @@
 import mongoose from "mongoose";
 
-const  NotificationSchema = new mongoose.Schema({
+const NotificationSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
 
-})
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
 
-const Notification  = mongoose.models.Notification|| mongoose.model("Notification",NotificationSchema);
+    message: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    type: {
+      type: String,
+      enum: [
+        "WELCOME",
+        "NEW_SONG",
+        "NEW_ALBUM",
+        "PLAYLIST",
+        "LIKE",
+        "COMMENT",
+        "FOLLOW",
+        "SUBSCRIPTION",
+        "PAYMENT",
+        "SYSTEM",
+        "PROMOTION"
+      ],
+      required: true,
+    },
+
+    sender: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      default: null,
+    },
+
+    artist: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Artist",
+      default: null,
+    },
+
+    song: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Song",
+      default: null,
+    },
+
+    playlist: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Playlist",
+      default: null,
+    },
+
+    image: {
+      type: String,
+      default: "",
+    },
+
+    actionUrl: {
+      type: String,
+      default: "",
+    },
+
+    isRead: {
+      type: Boolean,
+      default: false,
+    },
+
+    readAt: {
+      type: Date,
+      default: null,
+    },
+
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const Notification =
+  mongoose.models.Notification ||
+  mongoose.model("Notification", NotificationSchema);
 
 export default Notification;

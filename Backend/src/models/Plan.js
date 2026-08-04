@@ -1,9 +1,38 @@
 import mongoose from "mongoose";
 
-const  planSchema = new mongoose.Schema({
+const PlanSchema = new mongoose.Schema(
+{
+    name:{
+        type:String,
+        required:true,
+        unique:true
+    },
 
-})
+    description:String,
 
-const plan  = mongoose.models.plan|| mongoose.model("plan",planSchema);
+    price:{
+        type:Number,
+        required:true
+    },
 
-export default plan;
+    duration:{
+        type:Number, // Days
+        required:true
+    },
+
+    features:[String],
+
+    isActive:{
+        type:Boolean,
+        default:true
+    }
+},
+{
+    timestamps:true
+});
+
+const Plan =
+mongoose.models.Plan ||
+mongoose.model("Plan",PlanSchema);
+
+export default Plan;
