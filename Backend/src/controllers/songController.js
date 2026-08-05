@@ -1,7 +1,7 @@
 import { v2 as cloudinary } from "cloudinary"
 import Song from "../models/Song.js";
 
-import  {Role}  from "../models/Role.js";
+import  Role  from "../models/Role.js";
 
 import  Artist  from "../models/Artist.js";
 import  Album  from "../models/Album.js";

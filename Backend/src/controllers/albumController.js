@@ -1,7 +1,7 @@
 import { v2 as cloudinary } from "cloudinary";
 import Album from "../models/Album.js";
 import Song from "../models/Song.js";
-import { User } from "../models/user.js";
+import  User  from "../models/user.js";
 
 const addAlbum = async (req, res) => {
     try {

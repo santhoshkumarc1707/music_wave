@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { User, validateUser } from "../models/user.js";
+import  User from "../models/user.js";
 import { v2 as cloudinary } from "cloudinary";
 
 /**
