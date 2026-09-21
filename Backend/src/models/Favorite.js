@@ -25,17 +25,6 @@ const FavoriteSchema = new mongoose.Schema(
   }
 );
 
-// Prevent duplicate favorites
-// FavoriteSchema.index(
-//   {
-//     user: 1,
-//     favoriteType: 1,
-//     favoriteItem: 1,
-//   },
-//   {
-//     unique: true,
-//   }
-// );
 
 const Favorite =
   mongoose.models.Favorite ||

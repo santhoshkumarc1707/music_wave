@@ -103,6 +103,20 @@ import connectDB from "./src/config/mongodb.js";
 // Import seed functions
 import  seedRoles  from "./src/Seeding/userSeed.js";
 import  seedSuperAdmin  from "./src/Seeding/CreatingSuperAdmin.js";
+import RoleRouter from "./src/routes/roleRoute.js";
+import ArtistRouter from "./src/routes/ArtistRouter.js";
+import genereRouter from "./src/routes/GenereRouter.js";
+import settingRouter from "./src/routes/SettingsRouter.js";
+import playlistSongRouter from "./src/routes/playlistSongRouter.js";
+import favoriteRouter from "./src/routes/favoriteRouter.js";
+import SearchHistory from "./src/models/SearchHistory.js";
+import ListeningHistory from "./src/models/ListeningHistory.js";
+import ReviewRouter from "./src/routes/reviewRouter.js";
+import subscriptionRouter from "./src/routes/subscriptionRouter.js";
+import planRouter from "./src/routes/planRouter.js";
+import paymentRouter from "./src/routes/paymentRouter.js";
+import activityRouter from "./src/routes/activityRouter.js";
+import Notification from "./src/models/Notification.js";
 
 dotenv.config();
 
@@ -121,7 +135,19 @@ app.use("/api/album", albumRouter);
 app.use("/api", authRouter);
 app.use("/api/users", UserRouter);
 app.use("/api/search", SearchRouter);
-
+app.use("/api/roles",RoleRouter);
+app.use("/api/artist",ArtistRouter);
+app.use("/api/genres",genereRouter);
+app.use("/api/setting",settingRouter);
+app.use("/api/playlists",playlistSongRouter);
+app.use("/api/favorites",favoriteRouter);
+app.use("/api/history",ListeningHistory);
+app.use("/api/reviews",ReviewRouter);
+app.use("/api/subscriptions",subscriptionRouter);
+app.use("/api/plans",planRouter);
+app.use("/api/payments",paymentRouter);
+app.use("/api/activity",activityRouter);
+app.use("/api/notifications",Notification);
 app.get("/", (req, res) => {
   res.send("API Working");
 });

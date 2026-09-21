@@ -25,6 +25,7 @@ const ActivitySchema = new mongoose.Schema(
         "LOGOUT",
       ],
       required: true,
+      default: null
     },
 
     songId: {
