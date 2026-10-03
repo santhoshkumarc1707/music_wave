@@ -1,0 +1,3 @@
+import {createApi,fetchBaseQuery} from "@reduxjs/toolkit/query/react"; import type {User,UpdateUserRequest} from "./userTypes";
+export const userApi=createApi({reducerPath:"userApi",baseQuery:fetchBaseQuery({baseUrl:import.meta.env.VITE_BASE_URL,prepareHeaders:(h)=>{const t=localStorage.getItem("token");if(t)h.set("Authorization",`Bearer ${t}`);return h}}),tagTypes:["User"],endpoints:b=>({getProfile:b.query<User,void>({query:()=>"/users/me",providesTags:["User"]}),updateProfile:b.mutation<User,UpdateUserRequest>({query:body=>({url:"/users/me",method:"PUT",body}),invalidatesTags:["User"]})})});
+export const {useGetProfileQuery,useUpdateProfileMutation}=userApi;

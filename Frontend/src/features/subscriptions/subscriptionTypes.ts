@@ -1,0 +1,1 @@
+export type SubscriptionStatus="Active"|"Expired"|"Cancelled"; export type SubscriptionPaymentStatus="Pending"|"Paid"|"Failed"|"Refunded"; export interface Subscription{_id:string;user:string;plan:string;startDate:string;endDate?:string;amount:number;paymentStatus:SubscriptionPaymentStatus;status:SubscriptionStatus;autoRenew:boolean;}

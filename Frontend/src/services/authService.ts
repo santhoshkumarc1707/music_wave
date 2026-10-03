@@ -1,0 +1,1 @@
+import api from "./api"; import type {LoginRequest,RegisterRequest,LoginResponse} from "../features/auth/authTypes"; export const login=async(p:LoginRequest)=>{const{data}=await api.post<LoginResponse>("/login",p);return data}; export const register=async(p:RegisterRequest)=>{const{data}=await api.post<LoginResponse>("/users/register",p);return data};

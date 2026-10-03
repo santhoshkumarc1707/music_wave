@@ -1,0 +1,2 @@
+import {createApi,fetchBaseQuery} from "@reduxjs/toolkit/query/react"; import type {Album} from "./albumTypes";
+export const albumApi=createApi({reducerPath:"albumApi",baseQuery:fetchBaseQuery({baseUrl:import.meta.env.VITE_BASE_URL}),tagTypes:["Album"],endpoints:b=>({getAlbums:b.query<Album[],void>({query:()=>"/albums",providesTags:["Album"]}),getAlbum:b.query<Album,string>({query:id=>`/albums/${id}`})})}); export const {useGetAlbumsQuery,useGetAlbumQuery}=albumApi;

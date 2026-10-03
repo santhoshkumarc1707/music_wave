@@ -1,0 +1,2 @@
+import {createSlice,PayloadAction} from "@reduxjs/toolkit"; import type {Song} from "./songTypes";
+const slice=createSlice({name:"songs",initialState:{currentSong:null as Song|null},reducers:{setCurrentSong:(s,a:PayloadAction<Song|null>)=>{s.currentSong=a.payload},clearCurrentSong:s=>{s.currentSong=null}}}); export const {setCurrentSong,clearCurrentSong}=slice.actions; export default slice.reducer;

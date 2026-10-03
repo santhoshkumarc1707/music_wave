@@ -1,0 +1,3 @@
+import {createApi,fetchBaseQuery} from "@reduxjs/toolkit/query/react"; 
+import type {Notification} from "./notificationTypes"; 
+export const notificationApi=createApi({reducerPath:"notificationApi",baseQuery:fetchBaseQuery({baseUrl:import.meta.env.VITE_BASE_URL}),tagTypes:["Notification"],endpoints:b=>({getNotifications:b.query<Notification[],void>({query:()=>"/notifications",providesTags:["Notification"]}),markAsRead:b.mutation<void,string>({query:id=>({url:`/notifications/${id}/read`,method:"PUT"}),invalidatesTags:["Notification"]})})}); export const {useGetNotificationsQuery,useMarkAsReadMutation}=notificationApi;

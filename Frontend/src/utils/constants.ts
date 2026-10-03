@@ -1,0 +1,1 @@
+export const APP_NAME="Music Wave"; export const STORAGE_KEYS={TOKEN:"token",USER:"music_wave_user"} as const; export const ROLES={SUPER_ADMIN:"Super Admin",ADMIN:"Admin",ARTIST:"Artist",PREMIUM_USER:"Premium User",FREE_USER:"Free User"} as const;
